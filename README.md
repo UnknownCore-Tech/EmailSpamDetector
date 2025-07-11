@@ -1,1 +1,1 @@
-# Email-Security-Detector
+# EmailSpamDetector
