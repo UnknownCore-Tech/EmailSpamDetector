@@ -1,0 +1,35 @@
+body {
+  background: #f6f6f6;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+.container { max-width: 850px; margin: 0 auto; padding: 30px 0;}
+header { display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid black; margin-bottom:32px; padding: 9px 18px;}
+.logo { font-weight: bold; font-size: 1.2rem; }
+nav a { margin: 0 20px; color: #111;}
+.sign-up { background: #111; color: #fff; border-radius: 18px; border:none; padding: 9px 18px; margin: auto}
+main { background: #fff; padding: 36px; border-radius: 15px; box-shadow: 0 2px 8px #f0f1f2;}
+h2 { text-align: center;}
+.spam-form { max-width: 600px; margin: 0 auto;}
+label { display: block; margin-top: 16px; font-size:0.95rem; font-weight:500;}
+input, textarea {
+  width: 100%; margin-top: 5px; border: 1px solid #ddd; border-radius: 15px; padding: 10px; font-size:1rem; background: #E5E4E2;
+}
+.analyze-btn {
+  margin-top: 16px; display: block; width: 110px; margin-left: auto; margin-right: auto;
+  padding: 9px; background: #111; color: #fff; border: none; border-radius: 15px; font-weight: bold; cursor: pointer;
+}
+.result { margin-top: 28px; }
+.prob-bar { height: 6px; background: #dedede; border-radius: 4px; margin-top: 8px; }
+.fill { background: #888; height: 100%; border-radius: 4px;}
+.factors { margin-top: 32px; }
+.factors ul { padding-left: 0;}
+.factors li { list-style: none; margin-bottom: 9px;}
+.feedback { margin-top: 32px; text-align: center;}
+.feedback button { background: #f0f0f0; color: #111; border:none; border-radius: 15px; padding:9px 26px; margin-right: 16px; margin-bottom:14px; width: 170px; font-weight: bold; cursor: pointer; transition: background 0.3s ease;}
+.feedback .selected { background: #222; color: #fff;}
+.feedback .submit-btn {
+  margin-top: 16px; display: block; width: 110px; margin-left: auto; margin-right: auto;
+  padding: 9px; background: #111; color: #fff; border: none; border-radius: 15px;
+}
+textarea { min-height: 60px;}
