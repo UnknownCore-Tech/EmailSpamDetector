@@ -5,7 +5,11 @@ plugins {
     id 'checkstyle'
 }
 
-group = 'com.example'
+springBoot {
+    mainClass = 'backend.BackendApplication'
+}
+
+group = 'backend'
 version = '0.0.1-SNAPSHOT'
 
 java {
