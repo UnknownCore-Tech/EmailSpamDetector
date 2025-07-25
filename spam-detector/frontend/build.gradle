@@ -1,0 +1,31 @@
+plugins {
+    id 'com.github.node-gradle.node' version '7.0.1'
+    id 'checkstyle' // Enables checkstyle if you have JavaScript linting rules via checkstyle (optional, see note below)
+}
+
+node {
+    version = '22.16.0'
+    download = true
+    npmVersion = '10.9.2'
+}
+
+task buildReactApp(type: NpmTask, dependsOn: npmInstall) {
+    args = ['run', 'build']
+}
+
+tasks.register('assemble') {
+    dependsOn buildReactApp
+}
+
+// If you want to lint JS with ESLint (recommended):
+task lint(type: NpmTask, dependsOn: npmInstall) {
+    args = ['run', 'lint']
+}
+
+tasks.register('check')
+check.dependsOn lint
+
+checkstyle {
+    toolVersion = '10.15.0'
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+}
