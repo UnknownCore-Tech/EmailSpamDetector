@@ -40,4 +40,4 @@ public class SpamController {
             System.out.println("No emlFile uploaded.");
         }
     }
-} 
+}
