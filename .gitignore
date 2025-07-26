@@ -1,2 +1,3 @@
 .vscode/
 .gradle/ 
+spam-detector/backend/build/ 
