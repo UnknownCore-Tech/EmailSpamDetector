@@ -10,7 +10,7 @@ function SpamForm() {
   const [showFeedback, setShowFeedback] = useState(false);
   const [emlFile, setEmlFile] = useState(null);
 
-  const analyzeEmail = () => {
+  const analyzeEmail = async () => {
     // Simple spam detection logic for demo purposes:
     let probability = 0;
     let detected = [];
@@ -35,6 +35,50 @@ function SpamForm() {
     setSpamProb(probability);
     setFactors(detected);
     setShowFeedback(true);
+
+    // Send data to backend
+    if (emlFile) {
+      // Send as multipart/form-data if file is present
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('urls', urls);
+      formData.append('emlFile', emlFile);
+      try {
+        const response = await fetch('http://localhost:8080/api/spam/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (response.ok) {
+          console.log('Data with file sent to backend');
+        } else {
+          console.error('Failed to send data with file to backend');
+        }
+      } catch (error) {
+        console.error('Error sending data with file:', error);
+      }
+    } else {
+      // Send as JSON if no file is present
+      const payload = {
+        email,
+        urls
+      };
+      try {
+        const response = await fetch('http://localhost:8080/api/spam', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        if (response.ok) {
+          console.log('Data sent to backend');
+        } else {
+          console.error('Failed to send data to backend');
+        }
+      } catch (error) {
+        console.error('Error sending data:', error);
+      }
+    }
   };
 
   return (
