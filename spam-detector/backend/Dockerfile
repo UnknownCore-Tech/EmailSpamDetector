@@ -4,15 +4,16 @@ FROM eclipse-temurin:17-jdk-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy gradle files
+# Copy gradle files from project root
 COPY build.gradle settings.gradle gradlew ./
 COPY gradle gradle
 
-# Copy source code
-COPY src src
+# Copy backend files
+COPY backend/build.gradle backend/
+COPY backend/src backend/src
 
-# Build the application
-RUN ./gradlew build -x test
+# Build the backend application
+RUN ./gradlew :backend:build -x test
 
 # Production stage
 FROM eclipse-temurin:17-jre-alpine
@@ -27,8 +28,8 @@ RUN addgroup -g 1001 -S spring && \
 # Set working directory
 WORKDIR /app
 
-# Copy built application
-COPY --from=builder /app/build/libs/*.jar app.jar
+# Copy built application from backend module
+COPY --from=builder /app/backend/build/libs/*.jar app.jar
 
 # Change ownership to spring user
 RUN chown spring:spring app.jar

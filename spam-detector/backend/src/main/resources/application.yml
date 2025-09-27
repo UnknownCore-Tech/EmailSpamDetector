@@ -13,6 +13,16 @@ grok:
 # Server configuration
 server:
   port: ${PORT:8080}
+
+# Actuator configuration  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
   
 # Logging
 logging:
@@ -22,7 +32,9 @@ logging:
 # Production profiles
 ---
 spring:
-  profiles: production
+  config:
+    activate:
+      on-profile: production
   
 logging:
   level:
