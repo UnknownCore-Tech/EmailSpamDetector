@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import SpamForm from "./components/SpamForm";
+import { initGA } from "./analytics";
 
 function App() {
+  useEffect(() => {
+    initGA();
+  }, []);
+
   return (
     <div className="container">
       <header>
@@ -21,6 +26,8 @@ function App() {
         </nav>
       </header>
       <main>
+        <h2>Email Spam Detector</h2>
+        <p className="subtitle">Protect your inbox with AI-powered spam detection</p>
         <SpamForm />
       </main>
     </div>
