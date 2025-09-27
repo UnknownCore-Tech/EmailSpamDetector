@@ -1,0 +1,31 @@
+# Application Configuration
+app:
+  frontend:
+    url: ${FRONTEND_URL:http://localhost:3000}
+
+# GroqCloud AI Configuration
+grok:
+  api-key: ${GROK_API_KEY:your-grok-api-key-here}
+  base-url: https://api.groq.com/openai/v1
+  timeout: 30s
+  model: "llama-3.1-8b-instant"
+  
+# Server configuration
+server:
+  port: ${PORT:8080}
+  
+# Logging
+logging:
+  level:
+    backend: ${LOG_LEVEL:INFO}
+    
+# Production profiles
+---
+spring:
+  profiles: production
+  
+logging:
+  level:
+    backend: WARN
+    org.springframework: WARN
+    reactor: WARN

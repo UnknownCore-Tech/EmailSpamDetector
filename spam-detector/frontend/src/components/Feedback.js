@@ -6,21 +6,40 @@ function Feedback() {
 
   return (
     <div className="feedback">
-      <h3>Feedback</h3>
-      <p>Was this classification correct?</p>
-      <div>
-        <button className={selection==='yes'?'selected':''}
-          onClick={() => setSelection("yes")}>Yes</button>
-        <button className={selection==='no'?'selected':''}
-          onClick={() => setSelection("no")}>No</button>
+      <h3>💬 Help us improve</h3>
+      <p>Was this spam analysis accurate?</p>
+      <div className="feedback-buttons">
+        <button 
+          className={selection==='yes'?'selected':''}
+          onClick={() => setSelection("yes")}
+        >
+          👍 Yes, accurate
+        </button>
+        <button 
+          className={selection==='no'?'selected':''}
+          onClick={() => setSelection("no")}
+        >
+          👎 No, incorrect
+        </button>
       </div>
-      <label>Feedback (optional)</label>
+      <label>Additional feedback (optional)</label>
       <textarea
-        placeholder="text..."
+        placeholder="Tell us what we missed or what could be better..."
         value={comment}
         onChange={e => setComment(e.target.value)}
+        rows={3}
       />
-      <button className="submit-btn" onClick={() => {/* handle submit action */}}>Submit</button>
+      <button 
+        className="submit-btn" 
+        onClick={() => {
+          alert('Thank you for your feedback! This helps us improve our detection.');
+          setSelection(null);
+          setComment('');
+        }}
+        disabled={!selection}
+      >
+        🚀 Submit Feedback
+      </button>
     </div>
   );
 }
