@@ -16,13 +16,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         
         // Allow all origins temporarily for debugging - will be more specific in production
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:3000",
-            "https://*.vercel.app",
-            "https://*.netlify.app", 
-            "https://*.herokuapp.com",
-            "https://*.railway.app"
-        ));
+        configuration.addAllowedOriginPattern("*");
         
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
