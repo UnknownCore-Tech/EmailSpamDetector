@@ -1,21 +1,20 @@
-# Multi-stage build for Spring Boot backend
-FROM eclipse-temurin:17-jdk-alpine AS builder
+# Multi-stage build
+FROM eclipse-temurin:17-jdk-alpine AS build
 
-# Set working directory
+# Set working directory for build
 WORKDIR /app
 
-# Copy gradle files from spam-detector directory
-COPY spam-detector/build.gradle spam-detector/settings.gradle spam-detector/gradlew ./
-COPY spam-detector/gradle gradle
+# Copy gradle files and source code
+COPY build.gradle settings.gradle gradlew ./
+COPY gradle gradle/
+COPY config config/
+COPY backend/build.gradle backend/
+COPY backend/src backend/src/
 
-# Copy backend files
-COPY spam-detector/backend/build.gradle backend/
-COPY spam-detector/backend/src backend/src
+# Make gradlew executable and build
+RUN chmod +x ./gradlew && ./gradlew :backend:build -x test
 
-# Build the backend application
-RUN ./gradlew :backend:build -x test
-
-# Production stage
+# Runtime stage
 FROM eclipse-temurin:17-jre-alpine
 
 # Install curl for health checks
@@ -28,8 +27,8 @@ RUN addgroup -g 1001 -S spring && \
 # Set working directory
 WORKDIR /app
 
-# Copy built application from backend module
-COPY --from=builder /app/backend/build/libs/*.jar app.jar
+# Copy built JAR from build stage
+COPY --from=build /app/backend/build/libs/backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Change ownership to spring user
 RUN chown spring:spring app.jar
